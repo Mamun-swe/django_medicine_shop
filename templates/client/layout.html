@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {% load static %}
+    <link rel="stylesheet" href="/static/css/client.style.css">
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <title>Medicine Shop</title>
+</head>
+
+<body>
+
+    <div class="top-nav p-3 border-bottom">
+        <div class="d-flex">
+            <div class="mr-2 mr-lg-5">
+                <button type="button" class="btn rounded-circle shadow-none" id="menuToggle">
+                    <img src="/static/icons/bar-black.png" class="img-fluid">
+                </button>
+            </div>
+
+            <!-- Search Form -->
+            <div class="flex-fill">
+                <form>
+                    <div class="search-box">
+                        <input type="text" class="form-control rounded-0 shadow-none w-100"
+                            placeholder="Search for medicine (e.g. Napa, Python, JS)">
+                        <img src="/static/icons/search.png">
+                    </div>
+                </form>
+            </div>
+
+            <!-- Logo -->
+            <div class="ml-2 mx-lg-5 logo-img">
+                <a href="">
+                    <img src="/static/images/medi.jpg">
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="break"></div>
+
+    <!-- Side Menu -->
+    <div class="side-menu border-right" id="sideMenu">
+        <div class="title text-center p-3">
+            <h6 class="mb-0 text-danger">Medicine category</h6>
+        </div>
+        <div class="category-link px-3 pb-3">
+            <a href="" class="btn shadow-none">tablet <img src="/static/icons/forward-right.png"></a>
+            <a href="" class="btn shadow-none">capsul <img src="/static/icons/forward-right.png"></a>
+            <a href="" class="btn shadow-none">syrup <img src="/static/icons/forward-right.png"></a>
+            <a href="" class="btn shadow-none">homeopathic <img src="/static/icons/forward-right.png"></a>
+        </div>
+    </div>
+
+    {% block content %}
+    {% endblock %}
+
+
+    <script src="/static/js/jquery-3.5.1.slim.min.js"></script>
+    <script src="/static/js/popper.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script>
+        $('#menuToggle').click(function () {
+            $("#sideMenu").toggleClass("menu-open");
+        })
+    </script>
+</body>
+
+</html>
