@@ -1,5 +1,6 @@
 @import url('https://fonts.maateen.me/mukti/font.css');
 /* font-family: 'Mukti', sans-serif; */
+
 .top-nav {
     position: fixed;
     top: 0;
@@ -173,6 +174,21 @@
 
 .product-card {
     margin-bottom: 15px;
+    position: relative;
+    overflow: hidden;
+}
+
+.product-card .overlay {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    top: -100%;
+    background: rgba(0, 0, 0, 0.281);
+}
+
+.product-card:hover .overlay {
+    top: 0;
+    bottom: 35px;
 }
 
 .product-card .product-img {
@@ -188,15 +204,30 @@
     color: #ed1c24;
     font-size: 13px;
     font-weight: 900;
-    border: 1px solid #ed1c24;
     padding-top: 5px;
     padding-bottom: 5px;
     transition: 0.3s;
+    border-radius: 0px;
+    border: 1px solid #dfdfdf9a;
 }
 
 .product-card .btn:hover {
     color: #fff;
     background: #ed1c24;
+    border: 1px solid #ed1c24;
+}
+
+.product-card .overlay .btn {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    color: #000;
+    background: #fff;
+}
+
+.product-card .overlay .btn:hover {
+    border: 1px solid #dfdfdf9a;
 }
 
 @media(max-width: 576px) {
@@ -231,3 +262,37 @@
 }
 
 /* End Product Card */
+
+/* Auth */
+
+.auth .card-header {
+    padding: 30px 80px;
+    background: #dfdfdf;
+}
+
+.auth .card-header h3 {
+    font-weight: 600;
+    color: #000;
+}
+
+.auth .card-body .form-control {
+    font-size: 14px;
+    height: 45px;
+    border-radius: 3px;
+}
+
+.auth .card-body .btn {
+    color: #000;
+    height: 43px;
+    border-radius: 3px;
+    background: #dfdfdf;
+    font-weight: 300;
+}
+
+.auth .card-body p {
+    font-size: 14px;
+}
+
+.auth .card-body p a {
+    color: #ed1c24;
+}
