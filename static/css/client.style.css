@@ -1,3 +1,4 @@
+@import url('https://fonts.maateen.me/mukti/font.css');
 .top-nav {
     position: fixed;
     top: 0;
@@ -24,14 +25,15 @@
     position: absolute;
     right: 10px;
     top: 7px;
+    background: #dfdfdf;
 }
 
 .top-nav .search-box .form-control {
     font-size: 14px;
     height: 40px;
     border: 0;
-    padding-left: 5px;
     border-bottom: 1px solid #dfdfdf9a;
+    background: #dfdfdf;
 }
 
 .break {
@@ -49,6 +51,7 @@
     background: #fff;
     overflow-y: auto;
     padding-top: 73px;
+    z-index: 99;
     transition: 0.5s;
 }
 
@@ -66,6 +69,7 @@
     color: #555;
     transition: 0.3s;
     text-align: left;
+    border: 0;
 }
 
 .side-menu .category-link .btn img {
@@ -73,7 +77,156 @@
     margin-top: 5px;
 }
 
-.side-menu .category-link a:hover {
+.side-menu .category-link .btn:hover {
     color: #000;
-    background: #dfdfdf;
+    border: 0;
+    background: rgb(255, 255, 255);
+    background: linear-gradient(90deg, rgba(255, 255, 255, 1) 0%, rgba(223, 223, 223, 1) 100%);
 }
+
+/* Home Page */
+
+/* Banner */
+
+.home .banner .overlay h2 {
+    font-weight: 900;
+    font-size: 25px;
+    font-family: 'Mukti', sans-serif;
+}
+
+.home .banner .overlay h5 {
+    font-size: 18px;
+    line-height: 1.8rem;
+    font-family: 'Mukti', sans-serif;
+}
+
+@media(max-width: 768px) {
+    .home .banner .overlay {
+        padding: 50px;
+    }
+}
+
+@media(min-width: 768px) {
+    .home .banner {
+        position: relative;
+    }
+    .home .banner img {
+        height: 250px;
+    }
+    .home .banner .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        padding: 30px 180px;
+    }
+}
+
+@media(min-width: 992px) {
+    .home .banner {
+        position: relative;
+    }
+    .home .banner img {
+        height: auto;
+    }
+    .home .banner .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        padding: 30px 250px;
+    }
+}
+
+@media(min-width: 1140px) {
+    .home .banner .overlay {
+        padding: 60px 350px;
+    }
+    .home .banner .overlay h2 {
+        font-weight: 900;
+        font-size: 35px;
+        font-family: 'Mukti', sans-serif;
+    }
+    .home .banner .overlay h5 {
+        font-size: 18px;
+        line-height: 1.8rem;
+        font-family: 'Mukti', sans-serif;
+    }
+}
+
+@media(min-width: 1280px) {
+    .home .banner .overlay {
+        padding: 80px 350px;
+    }
+}
+
+@media(min-width: 1450px) {
+    .home .banner .overlay {
+        padding-top: 150px;
+    }
+}
+
+/* Product Card */
+
+.product-card {
+    margin-bottom: 15px;
+}
+
+.product-card .product-img {
+    margin: auto;
+}
+
+.product-card p {
+    font-size: 14px;
+    color: #555;
+}
+
+.product-card .btn {
+    color: #ed1c24;
+    font-size: 13px;
+    font-weight: 900;
+    border: 1px solid #ed1c24;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    transition: 0.3s;
+}
+
+.product-card .btn:hover {
+    color: #fff;
+    background: #ed1c24;
+}
+
+@media(max-width: 576px) {
+    .product-column {
+        padding-left: 3px;
+        padding-right: 3px;
+    }
+    .product-card {
+        height: 200px;
+    }
+    .product-card .product-img {
+        max-height: 100px;
+        max-width: 70px;
+    }
+}
+
+@media(min-width: 576px) {
+    .product-card {
+        height: 290px;
+        margin-bottom: 35px;
+    }
+    .product-card .product-img {
+        max-height: 200px;
+        max-width: 150px;
+    }
+}
+
+@media(min-width: 1480px) {
+    .product-card {
+        height: 300px;
+    }
+}
+
+/* End Product Card */
