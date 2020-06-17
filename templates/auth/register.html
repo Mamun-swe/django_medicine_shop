@@ -8,6 +8,24 @@
                 <div class="card">
                     <div class="card-header text-center border-0">
                         <h3 class="mb-0">Register</h3>
+                        {% if response %}
+                        {{response.message}}
+                        {% endif %}
+
+                        <!-- {% if form.errors %}
+                        {% for field in form %}
+                        {% for error in field.errors %}
+                        <div class="alert alert-danger">
+                            <strong>{{ error|escape }}</strong>
+                        </div>
+                        {% endfor %}
+                        {% endfor %}
+                        {% for error in form.non_field_errors %}
+                        <div class="alert alert-danger">
+                            <strong>{{ error|escape }}</strong>
+                        </div>
+                        {% endfor %} -->
+                        {% endif %}
                     </div>
                     <div class="card-body p-sm-4">
                         <form action="/register_form_submission/" method="post">
@@ -29,6 +47,8 @@
                                 <input type="password" name="password" class="form-control shadow-none"
                                     placeholder="Enter password">
                             </div>
+
+                            <input type="text" name="role" value="admin">
 
                             <button type="submit" class="btn btn-block shadow-none">Create Account</button>
                         </form>
