@@ -22,14 +22,39 @@
             </div>
 
             <!-- Search Form -->
-            <div class="flex-fill">
+            <div class="flex-fill d-none d-sm-block">
                 <form>
                     <div class="search-box">
-                        <input type="text" class="form-control shadow-none w-100"
+                        <input type="text" class="form-control shadow-none w-100 "
                             placeholder="Search for medicine (e.g. Napa, Python, JS)">
                         <img src="/static/icons/search.png">
                     </div>
                 </form>
+            </div>
+
+            <!-- mobile search trigger button -->
+            <div class="ml-auto d-sm-none">
+                <button type="button" class="btn shadow-none" id="openMibileSearch">
+                    <img src="/static/icons/search.png">
+                </button>
+            </div>
+
+            <div class="ml-2">
+                <button class="btn shadow-none" id="openCart">
+                    <img src="/static/icons/cart.png" class="img-fluid">
+                </button>
+            </div>
+
+            <div class="ml-2">
+                <a href="/login" class="btn shadow-none">
+                    <img src="/static/icons/user.png" class="img-fluid">
+                </a>
+            </div>
+
+            <div class="ml-2">
+                <a href="/" class="btn shadow-none">
+                    <img src="/static/icons/home_black.png" class="img-fluid">
+                </a>
             </div>
 
             <!-- Logo -->
@@ -37,6 +62,27 @@
                 <a href="/">
                     <img src="/static/images/medi.jpg">
                 </a>
+            </div>
+        </div>
+    </div>
+    <!-- Mobile Search -->
+    <div class="search-for-mobile d-block d-sm-none p-3 border-bottom" id="mobile-search-box">
+        <div class="d-flex">
+            <div class="flex-fill">
+                <form>
+                    <div class="search-box">
+                        <input type="text" class="form-control shadow-none w-100 "
+                            placeholder="Search for medicine (e.g. Napa, Python, JS)">
+                        <button type="submit" class="btn shadow-none search-btn">
+                            <img src="/static/icons/search.png" class="img-fluid">
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div>
+                <button type="button" class="btn shadow-none rounded-circle close-btn ml-2" id="close-mobile-search">
+                    <img src="/static/icons/close_small.png" class="img-fluid">
+                </button>
             </div>
         </div>
     </div>
@@ -59,6 +105,62 @@
     {% endblock %}
 
 
+    <!-- Shopping Cart -->
+    <div class="shopping-cart" id="shopping-cart">
+        <div class="header text-center py-3">
+            <h5 class="mb-0">Your shopping cart</h5>
+            <button type="button" class="btn shadow-none rounded-circle" id="closeCart">
+                <img src="/static/icons/close_small.png" class="img-fluid">
+            </button>
+        </div>
+
+        <div class="cart-body p-3">
+            <h1>hello </h1>
+            <h1>hello </h1>
+            <h1>hello </h1>
+            <h1>hello </h1>
+            <h1>hello </h1>
+            <h1>hello </h1>
+            <h1>hello </h1>
+            <h1>hello </h1>
+            <h1>hello </h1>
+            <h1>hello </h1>
+            <h1>hello </h1>
+            <h1>hello </h1>
+            <h1>hello </h1>
+            <h1>hello </h1>
+            <h1>hello </h1>
+            <h1>hello </h1>
+            <h1>hello </h1>
+            <h1>hello </h1>
+            <h1>hello </h1>
+            <h1>hello </h1>
+            <h1>hello </h1>
+            <h1>hello </h1>
+            <h1>hello </h1>
+            <h1>hello </h1>
+            <h1>hello </h1>
+            <h1>hello </h1>
+            <h1>hello </h1>
+            <h1>hello </h1>
+            <h1>hello </h1>
+            <h1>hello </h1>
+            <h1>hello </h1>
+            <h1>hello </h1>
+            <h1>hello </h1>
+            <h1>hello </h1>
+            <h1>hello </h1>
+            <h1>hello </h1>
+        </div>
+
+        <div class="cart-footer px-3 pb-4">
+            <button type="button" class="btn shadow-none btn-block">Place Order</button>
+        </div>
+
+    </div>
+    <!-- End Shopping Cart -->
+
+
     <script src="/static/js/jquery-3.5.1.slim.min.js"></script>
     <script src="/static/js/popper.min.js"></script>
     <script src="/static/js/bootstrap.min.js"></script>
@@ -66,6 +168,31 @@
         $('#menuToggle').click(function () {
             $("#sideMenu").toggleClass("menu-open");
         })
+        $('#openMibileSearch').click(function () {
+            $('#mobile-search-box').css('right', '0')
+        })
+        $('#close-mobile-search').click(function () {
+            $('#mobile-search-box').css('right', '-100%')
+        })
+
+
+        var w = window.innerWidth;
+        if (w > 576) {
+            $('#openCart').click(function () {
+                $('#shopping-cart').css('right', '0')
+            })
+            $('#closeCart').click(function () {
+                $('#shopping-cart').css('right', '-100%')
+            })
+        } else {
+            $('#openCart').click(function () {
+                $('#shopping-cart').css('bottom', '0')
+            })
+            $('#closeCart').click(function () {
+                $('#shopping-cart').css('bottom', '-100%')
+            })
+        }
+
     </script>
 </body>
 
