@@ -26,6 +26,8 @@ def register_form_submission(request):
         name = request.POST["name"]
         email = request.POST["email"]
         password = request.POST["password"]
+
+        print(name, email, password)
         return render(request, "auth/register.html")
     else:
         return render(request, "auth/register.html")
