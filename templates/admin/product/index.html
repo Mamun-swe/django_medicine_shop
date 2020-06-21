@@ -29,6 +29,9 @@
                             <td class="text-center">
                                 <p class="mb-0"><b>Price</b></p>
                             </td>
+                            <td class="text-center">
+                                <p class="mb-0"><b>Image</b></p>
+                            </td>
                             <td>
                                 <p class="mb-0"><b>Description</b></p>
                             </td>
@@ -43,6 +46,9 @@
                             <td class="text-center">{{ product.id }}</td>
                             <td>{{ product.name }}</td>
                             <td class="text-center">{{ product.price }}. Tk</td>
+                            <td class="text-center">
+                                <img src="{{ product.product_images.url }}" class="img-fluid" width="100">
+                            </td>
                             <td>{{ product.description }}</td>
                             <td class="text-center">
                                 <a href="{% url 'product-view' id=product.id %}"
