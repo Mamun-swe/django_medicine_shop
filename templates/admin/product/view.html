@@ -1,0 +1,29 @@
+{% extends 'admin/layout.html' %}
+{% block content %}
+
+<div class="container py-2 py-lg-5">
+    <div class="row">
+        <div class="col-12 col-lg-10 m-auto">
+            <h5 class="text-capitalize" id="product-name"></h5>
+            <p class="mb-0">Price: <span id="product-price"></span> .Tk</p>
+            <p id="product-description"></p>
+        </div>
+    </div>
+</div>
+
+<script>
+    let url = window.location.pathname.split("/")
+    let id = url[3]
+
+    $.ajax({
+        type: 'GET',
+        url: "/admin/product/" + id,
+        success: function (data) {
+            $("#product-name").html(data.name),
+                $("#product-price").html(data.price),
+                $("#product-description").html(data.description)
+        }
+    })
+</script>
+
+{% endblock %}

@@ -1,6 +1,9 @@
 from django.shortcuts import render, HttpResponse
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 from .models import Users
-from .forms import UsersForms
+from .serializer import UsersSerialize
+
 
 # Create your views here.
 
@@ -23,27 +26,16 @@ def register(request):
     return render(request, "auth/register.html")
 
 
-def register_form_submission(request):
-    form = UsersForms(request.POST or None)
-    if form.is_valid():
-        form.save()
+def registration_submission(request):
+    return render(request, "auth/register.html")
 
-    response = {
-        'message': 'Successfully account created'
-    }
 
-    print(response)
-
-    return render(request, "auth/register.html", {'response': response})
-    # if request.method == 'POST':
-    #     name = request.POST["name"]
-    #     email = request.POST["email"]
-    #     password = request.POST["password"]
-
-    #     print(name, email, password)
-    #     return render(request, "auth/register.html")
-    # else:
-    #     return render(request, "auth/register.html")
+@api_view(['GET'])
+def all_register_users(request):
+    if request.method == "GET":
+        list = Users.objects.all()
+        serializer = UsersSerialize(list, many=True)
+        return Response(serializer.data)
 
 
 def reset(request):

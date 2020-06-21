@@ -8,9 +8,9 @@
                 <div class="card">
                     <div class="card-header text-center border-0">
                         <h3 class="mb-0">Register</h3>
-                        {% if response %}
+                        <!-- {% if response %}
                         {{response.message}}
-                        {% endif %}
+                        {% endif %} -->
 
                         <!-- {% if form.errors %}
                         {% for field in form %}
@@ -25,11 +25,13 @@
                             <strong>{{ error|escape }}</strong>
                         </div>
                         {% endfor %} -->
-                        {% endif %}
+                        <!-- {% endif %} -->
+
                     </div>
                     <div class="card-body p-sm-4">
                         <form action="/register_form_submission/" method="post">
                             {% csrf_token %}
+                            {{ form.as_p }}
                             <div class="form-group mb-4">
                                 <small class="text-dark">Name</small>
                                 <input type="text" name="name" class="form-control shadow-none"

@@ -1,0 +1,96 @@
+{% extends 'admin/layout.html' %}
+{% block content %}
+
+<div class="container py-2 py-lg-5">
+    <div class="row">
+        <div class="col-12 col-lg-10 m-auto">
+            <div class="card rounded-0">
+                <div class="card-body">
+
+                    <form id="productCreate">
+                        <input type="hidden" id="product-id">
+                        <!-- Name -->
+                        <div class="form-group mb-4">
+                            <small>Product Name</small>
+                            <input type="text" id="product-name" class="form-control rounded-0 shadow-none">
+                        </div>
+
+                        <!-- Price -->
+                        <div class="form-group mb-4">
+                            <small>Product Price</small>
+                            <input type="number" min="1" id="product-price" class="form-control rounded-0 shadow-none">
+                        </div>
+
+                        <!-- Description -->
+                        <div class="form-group mb-4">
+                            <small>Product Description</small>
+                            <textarea class="form-control rounded-0 shadow-none" id="product-description"
+                                rows="6"></textarea>
+                        </div>
+
+                        <button type="submit"
+                            class="btn btn-block rounded-0 shadow-none text-white btn-info">Update</button>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let url = window.location.pathname.split("/")
+    let id = url[3]
+
+    $.ajax({
+        type: 'GET',
+        url: "/admin/product/" + id,
+        success: function (data) {
+            $("#product-id").val(data.id),
+                $("#product-name").val(data.name),
+                $("#product-price").val(data.price),
+                $("#product-description").val(data.description)
+        }
+    })
+
+    $("#productCreate").submit(function (event) {
+        event.preventDefault()
+        let data = {
+            name: $("#product-name").val(),
+            price: $("#product-price").val(),
+            description: $("#product-description").val(),
+        }
+
+        $.ajax({
+            type: 'PUT',
+            url: "/admin/product/" + id,
+            data: data,
+            success: function (response) {
+                if (response == "success") {
+                    $.toast({
+                        allowToastClose: true,
+                        bgColor: '#28a745',
+                        position: 'top-right',
+                        heading: 'Successfully',
+                        text: "Product updated."
+                    })
+                }
+            },
+            error: function (errors) {
+                if (errors.status == 400) {
+                    $.toast({
+                        allowToastClose: true,
+                        bgColor: '#ffc107',
+                        position: 'top-right',
+                        heading: 'Failed',
+                        text: "Update failed"
+                    })
+                }
+
+            }
+        })
+    })
+</script>
+
+{% endblock %}

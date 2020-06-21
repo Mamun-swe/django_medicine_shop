@@ -1,0 +1,77 @@
+{% extends 'admin/layout.html' %}
+{% block content %}
+
+<div class="container py-2 py-lg-5">
+    <div class="row">
+        <div class="col-12 col-lg-10 m-auto">
+            <div class="card rounded-0">
+                <div class="card-body">
+                    <form id="productCreate">
+                        <!-- Name -->
+                        <div class="form-group mb-4">
+                            <small id="name">Product Name</small>
+                            <input type="text" id="product-name" class="form-control rounded-0 shadow-none"
+                                placeholder="Enter product name">
+                        </div>
+
+                        <!-- Price -->
+                        <div class="form-group mb-4">
+                            <small id="price">Product Price</small>
+                            <input type="text" min="1" id="product-price" class="form-control rounded-0 shadow-none"
+                                placeholder="Enter product price">
+                        </div>
+
+                        <!-- Description -->
+                        <div class="form-group mb-4">
+                            <small id="description">Product Description</small>
+                            <textarea class="form-control rounded-0 shadow-none" id="product-description"
+                                rows="6"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-block rounded-0 shadow-none text-white btn-info">Add
+                            Product</button>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $("#productCreate").submit(function (event) {
+        event.preventDefault()
+        let data = {
+            name: $("#product-name").val(),
+            price: $("#product-price").val(),
+            description: $("#product-description").val(),
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: "/admin/product/",
+            data: data,
+            success: function (response) {
+                $.toast({
+                    allowToastClose: true,
+                    bgColor: '#28a745',
+                    position: 'top-right',
+                    heading: 'Successfully',
+                    text: "Product updated."
+                })
+            },
+            error: function (errors) {
+
+                if (errors.status == 400) {
+                    $("#name").html(errors.responseJSON.name).css("color", "red")
+                    $("#price").html(errors.responseJSON.price).css("color", "red")
+                    $("#description").html(errors.responseJSON.description).css("color", "red")
+                }
+
+            }
+        })
+    })
+</script>
+
+
+{% endblock %}

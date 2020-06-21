@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {% load static %}
+
+    <script src="/static/js/jquery-3.5.1.slim.min.js"></script>
+    <script src="/static/js/popper.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="/static/css/client.style.css">
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/jquery.toast.min.css">
+    <title>Medicine Shop</title>
+</head>
+
+<body>
+
+    <div class="top-nav p-3 border-bottom">
+        <div class="d-flex">
+            <div class="mr-2 mr-lg-5">
+                <button type="button" class="btn rounded-circle shadow-none" id="menuToggle">
+                    <img src="/static/icons/bar-black.png" class="img-fluid">
+                </button>
+            </div>
+
+            <!-- Logo -->
+            <div class="ml-auto logo-img">
+                <a href="/">
+                    <img src="/static/images/medi.jpg">
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="break"></div>
+
+    <!-- Side Menu -->
+    <div class="side-menu border-right" id="sideMenu">
+        <div class="category-link p-3">
+            <a href="/admin" class="btn shadow-none">Dashboard <img src="/static/icons/forward-right.png"></a>
+            <a href="/admin/product/index" class="btn shadow-none">Products <img
+                    src="/static/icons/forward-right.png"></a>
+        </div>
+    </div>
+
+    {% block content %}
+    {% endblock %}
+
+
+    <script src="/static/js/jquery.toast.min.js"></script>
+    <script>
+        $('#menuToggle').click(function () {
+            $("#sideMenu").toggleClass("menu-open");
+        })
+        $('#openMibileSearch').click(function () {
+            $('#mobile-search-box').css('right', '0')
+        })
+        $('#close-mobile-search').click(function () {
+            $('#mobile-search-box').css('right', '-100%')
+        })
+
+
+        var w = window.innerWidth;
+        if (w > 576) {
+            $('#openCart').click(function () {
+                $('#shopping-cart').css('right', '0')
+            })
+            $('#closeCart').click(function () {
+                $('#shopping-cart').css('right', '-100%')
+            })
+        } else {
+            $('#openCart').click(function () {
+                $('#shopping-cart').css('bottom', '0')
+            })
+            $('#closeCart').click(function () {
+                $('#shopping-cart').css('bottom', '-100%')
+            })
+        }
+
+    </script>
+</body>
+
+</html>

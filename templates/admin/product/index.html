@@ -1,0 +1,72 @@
+{% extends 'admin/layout.html' %}
+{% block content %}
+
+<div class="container">
+    <div class="py-2">
+        <div class="row">
+            <div class="col-12">
+                <div class="d-flex px-2 py-3 border-bottom">
+                    <div class="pt-2">
+                        <h5 class="mb-0">Products</h5>
+                    </div>
+                    <div class="ml-auto">
+                        <a href="/admin/product/create" class="btn btn-info rounded-0 shadow-none text-white">Add
+                            New</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 py-3">
+                <table class="table table-responsive-lg table-bordered">
+                    <thead>
+                        <tr>
+                            <td class="text-center">
+                                <p class="mb-0"><b>SL</b></p>
+                            </td>
+                            <td>
+                                <p class="mb-0"><b>Name</b></p>
+                            </td>
+                            <td class="text-center">
+                                <p class="mb-0"><b>Price</b></p>
+                            </td>
+                            <td>
+                                <p class="mb-0"><b>Description</b></p>
+                            </td>
+                            <td class="text-center">
+                                <p class="mb-0"><b>Action</b></p>
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for product in product %}
+                        <tr>
+                            <td class="text-center">{{ product.id }}</td>
+                            <td>{{ product.name }}</td>
+                            <td class="text-center">{{ product.price }}. Tk</td>
+                            <td>{{ product.description }}</td>
+                            <td class="text-center">
+                                <a href="{% url 'product-view' id=product.id %}"
+                                    class="btn btn-sm btn-light border rounded-0 shadow-none">view</a>
+
+                                <a href="{% url 'product-edit' id=product.id %}"
+                                    class="btn btn-sm btn-info rounded-0 shadow-none">Edit</a>
+
+                                <button type="button"
+                                    class="btn btn-sm btn-danger rounded-0 shadow-none">Delete</button>
+
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+</script>
+{% endblock %}
