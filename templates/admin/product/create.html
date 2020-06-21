@@ -7,6 +7,7 @@
             <div class="card rounded-0">
                 <div class="card-body">
                     <form id="productCreate">
+                        
                         <!-- Name -->
                         <div class="form-group mb-4">
                             <small id="name">Product Name</small>
@@ -28,6 +29,11 @@
                                 rows="6"></textarea>
                         </div>
 
+                        <!-- Image -->
+                        <div class="form-group mb-4">
+                            <input type="file" name="file" id="file">
+                        </div>
+
                         <button type="submit" class="btn btn-block rounded-0 shadow-none text-white btn-info">Add
                             Product</button>
 
@@ -39,36 +45,52 @@
 </div>
 
 <script>
-    $("#productCreate").submit(function (event) {
-        event.preventDefault()
-        let data = {
-            name: $("#product-name").val(),
-            price: $("#product-price").val(),
-            description: $("#product-description").val(),
-        }
+    $(document).ready(function () {
+        var productImage
+        $("#file").change(function (e) {
+            var myfile = e.target.files[0]
+            productImage = myfile
+        })
 
-        $.ajax({
-            type: 'POST',
-            url: "/admin/product/",
-            data: data,
-            success: function (response) {
-                $.toast({
-                    allowToastClose: true,
-                    bgColor: '#28a745',
-                    position: 'top-right',
-                    heading: 'Successfully',
-                    text: "Product updated."
-                })
-            },
-            error: function (errors) {
+        $("#productCreate").submit(function (event) {
+            event.preventDefault()
+            var formData = new FormData()
+            formData.append('name', $("#product-name").val())
+            formData.append('price', $("#product-price").val())
+            formData.append('product_images', productImage)
+            formData.append('description', $("#product-description").val())
 
-                if (errors.status == 400) {
-                    $("#name").html(errors.responseJSON.name).css("color", "red")
-                    $("#price").html(errors.responseJSON.price).css("color", "red")
-                    $("#description").html(errors.responseJSON.description).css("color", "red")
+            $.ajax({
+                method: 'post',
+                processData: false,
+                contentType: false,
+                cache: false,
+                data: formData,
+                enctype: 'multipart/form-data',
+                url: "/admin/product/",
+                data: formData,
+                success: function (response) {
+                    $.toast({
+                        allowToastClose: true,
+                        bgColor: '#28a745',
+                        position: 'top-right',
+                        heading: 'Successfully',
+                        text: "Product updated."
+                    })
+                },
+                error: function (errors) {
+                    if (errors) {
+                        console.log(errors)
+                    }
+
+                    if (errors.status == 400) {
+                        $("#name").html(errors.responseJSON.name).css("color", "red")
+                        $("#price").html(errors.responseJSON.price).css("color", "red")
+                        $("#description").html(errors.responseJSON.description).css("color", "red")
+                    }
+
                 }
-
-            }
+            })
         })
     })
 </script>

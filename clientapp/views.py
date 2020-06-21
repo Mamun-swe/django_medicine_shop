@@ -2,16 +2,26 @@ from django.shortcuts import render, HttpResponse
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import Users
+from adminapp.models import Products
 from .serializer import UsersSerialize
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 # Create your views here.
 
 
 def home(request):
-    products = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
-                11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
-    return render(request, "client/home.html", {'data': products})
+    allproducts = Products.objects.all()
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(allproducts, 2)
+    try:
+        products = paginator.page(page)
+    except PageNotAnInteger:
+        products = paginator.page(1)
+    except EmptyPage:
+        products = paginator.page(paginator.num_pages)
+    return render(request, "client/home.html", {'product': products})
 
 
 def about(request):

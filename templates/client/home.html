@@ -19,18 +19,43 @@
     <div class="container py-3 py-md-5">
         <div class="row px-1 px-sm-0">
 
-            {% for datax in data %}
+            {% for product in product %}
             <div class="col-6 col-md-4 col-lg-3 px-2 px-sm-3">
                 <div class="card product-card border-0 text-center">
-                    <img src="/static/products/medicine.png" class="product-img">
-                    <p class="mb-2">Price : 50tk.</p>
+                    <img src="{{ product.product_images.url }}" class="product-img">
+                    <p class="mb-0 text-capitalize">{{ product.name }}</p>
+                    <p class="mb-2">Price : {{product.price}}tk.</p>
                     <button type="button" class="btn shadow-none btn-block">Add Cart</button>
                     <div class="overlay">
-                        <button type="button" class="btn shadow-none btn-block">Details</button>
+                        <a href="" class="btn shadow-none btn-block">Details</a>
                     </div>
                 </div>
             </div>
             {% endfor %}
+
+            <div class="col-12">
+                {% if product.has_other_pages %}
+                <ul class="pagination">
+                    {% if product.has_previous %}
+                    <li><a href="?page={{ product.previous_page_number }}">&laquo;</a></li>
+                    {% else %}
+                    <li class="disabled"><span>&laquo;</span></li>
+                    {% endif %}
+                    {% for i in product.paginator.page_range %}
+                    {% if product.number == i %}
+                    <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                    {% else %}
+                    <li><a href="?page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                    {% endfor %}
+                    {% if product.has_next %}
+                    <li><a href="?page={{ product.next_page_number }}">&raquo;</a></li>
+                    {% else %}
+                    <li class="disabled"><span>&raquo;</span></li>
+                    {% endif %}
+                </ul>
+                {% endif %}
+            </div>
 
         </div>
     </div>
