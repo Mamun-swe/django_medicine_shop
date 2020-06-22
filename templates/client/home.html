@@ -25,13 +25,16 @@
                     <img src="{{ product.product_images.url }}" class="product-img">
                     <p class="mb-0 text-capitalize">{{ product.name }}</p>
                     <p class="mb-2">Price : {{product.price}}tk.</p>
-                    <button type="button" class="btn shadow-none btn-block">Add Cart</button>
+                    <button type="button" class="btn shadow-none btn-block" onclick="addToCart({id: '{{product.id}}', name: '{{product.name}}', price: '{{product.price}}', image: '{{product.product_images}}'})">Add
+                        Cart</button>
                     <div class="overlay">
-                        <a href="" class="btn shadow-none btn-block">Details</a>
+                        <button type="button" class="btn shadow-none btn-block"
+                            onclick="openModal('{{ product.id }}')">Details</button>
                     </div>
                 </div>
             </div>
             {% endfor %}
+
 
             <div class="col-12">
                 {% if product.has_other_pages %}
@@ -61,9 +64,67 @@
     </div>
     <!-- End Products -->
 
-
-
+    <div class="product-modal" id="modal">
+        <div class="modal-content">
+            <div class="row">
+                <button type="button" class="btn shadow-none close-btn" id="closeModal">
+                    <img src="/static/icons/close_new.png" alt="">
+                </button>
+                <div class="col-12 col-sm-6 col-lg-5 mt-4 mt-sm-0">
+                    <div id="image"></div>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-7 pl-sm-2 pl-md-3 pl-lg-4 pt-3 pt-sm-0 mt-sm-4">
+                    <h5 id="product-name" class="mb-3"></h5>
+                    <p id="product-description" class="mb-3"></p>
+                    <p id="product-price" class="mb-3"></p>
+                    <button type="button" class="btn btn-block btn-danger rounded shadow-none text-white" onclick="addToCart({id: '{{product.id}}', name: '{{product.name}}', price: '{{product.price}}', image: '{{product.product_images}}'})"><b>Add to cart</b></button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div>
+
+<script>
+
+    // Modal Script
+    var modal = document.getElementById("modal")
+    function openModal(id) {
+        $.ajax({
+            type: 'GET',
+            url: "product/" + id + "/view",
+            success: function (data) {
+                $("#product-name").html(data.name),
+                    $("#product-price").html('Price: ' + data.price + ' Tk.'),
+                    $("#product-description").html(data.description)
+                $("#image").html('<img src="' + data.product_images + '" class="img-fluid" />')
+            }
+        })
+        modal.style.display = "block";
+        $("#modal-id").html(id)
+    }
+
+    $("#closeModal").click(function () {
+        modal.style.display = "none";
+    })
+
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+    // End modal script
+
+    // Add-cart Script
+    var productArr = []
+    function addToCart(product) {
+        productArr.push(product)
+        localStorage.setItem('products', JSON.stringify(productArr))
+    }
+
+    // End add-cart Script
+
+
+</script>
 
 {% endblock %}

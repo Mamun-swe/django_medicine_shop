@@ -8,6 +8,13 @@
     {% load static %}
     <link rel="stylesheet" href="/static/css/client.style.css">
     <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/jquery.toast.min.css">
+
+    <script src="/static/js/jquery-3.5.1.slim.min.js"></script>
+    <script src="/static/js/popper.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     <title>Medicine Shop</title>
 </head>
 
@@ -115,42 +122,9 @@
         </div>
 
         <div class="cart-body p-3">
-            <h1>hello </h1>
-            <h1>hello </h1>
-            <h1>hello </h1>
-            <h1>hello </h1>
-            <h1>hello </h1>
-            <h1>hello </h1>
-            <h1>hello </h1>
-            <h1>hello </h1>
-            <h1>hello </h1>
-            <h1>hello </h1>
-            <h1>hello </h1>
-            <h1>hello </h1>
-            <h1>hello </h1>
-            <h1>hello </h1>
-            <h1>hello </h1>
-            <h1>hello </h1>
-            <h1>hello </h1>
-            <h1>hello </h1>
-            <h1>hello </h1>
-            <h1>hello </h1>
-            <h1>hello </h1>
-            <h1>hello </h1>
-            <h1>hello </h1>
-            <h1>hello </h1>
-            <h1>hello </h1>
-            <h1>hello </h1>
-            <h1>hello </h1>
-            <h1>hello </h1>
-            <h1>hello </h1>
-            <h1>hello </h1>
-            <h1>hello </h1>
-            <h1>hello </h1>
-            <h1>hello </h1>
-            <h1>hello </h1>
-            <h1>hello </h1>
-            <h1>hello </h1>
+            <div id="product">
+                
+            </div>
         </div>
 
         <div class="cart-footer px-3 pb-4">
@@ -161,10 +135,30 @@
     <!-- End Shopping Cart -->
 
 
-    <script src="/static/js/jquery-3.5.1.slim.min.js"></script>
-    <script src="/static/js/popper.min.js"></script>
-    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/jquery.toast.min.js"></script>
     <script>
+        function getLocalStorageData(){
+            var products = JSON.parse(localStorage.getItem('products'))
+            $.each(products, function(index, value){
+                $("#product").append(
+                    '<div class="d-flex border-bottom pb-2 mb-2">'+
+                        '<div>'+
+                            '<p class="mb-0 text-capitalize">'+ value.name +'</p>'+
+                            '<small>'+ value.price + ' Tk.'+'</small>'+
+                        '</div>'+
+                        '<div class="ml-auto">'+
+                            '<button type="button" class="btn shadow-none rounded remove-item-btn" onClick="remoreItem('+value.id+')">&times;</button>'+
+                        '</div>'+
+                    '</div>'
+                )
+            })
+        }
+
+        function remoreItem(id){
+            console.log(id)
+        }
+
+
         $('#menuToggle').click(function () {
             $("#sideMenu").toggleClass("menu-open");
         })
@@ -180,12 +174,14 @@
         if (w > 576) {
             $('#openCart').click(function () {
                 $('#shopping-cart').css('right', '0')
+                getLocalStorageData()
             })
             $('#closeCart').click(function () {
                 $('#shopping-cart').css('right', '-100%')
             })
         } else {
             $('#openCart').click(function () {
+                getLocalStorageData()
                 $('#shopping-cart').css('bottom', '0')
             })
             $('#closeCart').click(function () {

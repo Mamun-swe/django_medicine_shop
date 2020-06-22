@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from .models import Users
 from adminapp.models import Products
 from .serializer import UsersSerialize
+from adminapp.serializer import ProductSerializer
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
@@ -14,7 +15,7 @@ def home(request):
     allproducts = Products.objects.all()
     page = request.GET.get('page', 1)
 
-    paginator = Paginator(allproducts, 2)
+    paginator = Paginator(allproducts, 20)
     try:
         products = paginator.page(page)
     except PageNotAnInteger:
@@ -22,6 +23,17 @@ def home(request):
     except EmptyPage:
         products = paginator.page(paginator.num_pages)
     return render(request, "client/home.html", {'product': products})
+
+
+@api_view(['GET'])
+def productView(request, id):
+    try:
+        list = Products.objects.get(id=id)
+    except Products.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    if request.method == "GET":
+        serializer = ProductSerializer(list)
+        return Response(serializer.data)
 
 
 def about(request):
