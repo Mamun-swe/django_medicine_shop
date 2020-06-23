@@ -121,9 +121,10 @@
             </button>
         </div>
 
-        <div class="cart-body p-3">
-            <div id="product">
-                
+        <div class="cart-body">
+            <div class="pt-3" id="product"></div>
+            <div class="total pl-3 pr-4 pb-3 pt-2 text-right">
+                <p class="mb-0"><b id="total"></b></p>
             </div>
         </div>
 
@@ -137,24 +138,31 @@
 
     <script src="/static/js/jquery.toast.min.js"></script>
     <script>
-        function getLocalStorageData(){
+        function getLocalStorageData() {
             var products = JSON.parse(localStorage.getItem('products'))
-            $.each(products, function(index, value){
+            var total = 0;
+            $.each(products, function (index, value) {
                 $("#product").append(
-                    '<div class="d-flex border-bottom pb-2 mb-2">'+
-                        '<div>'+
-                            '<p class="mb-0 text-capitalize">'+ value.name +'</p>'+
-                            '<small>'+ value.price + ' Tk.'+'</small>'+
-                        '</div>'+
-                        '<div class="ml-auto">'+
-                            '<button type="button" class="btn shadow-none rounded remove-item-btn" onClick="remoreItem('+value.id+')">&times;</button>'+
-                        '</div>'+
+                    '<div class="d-flex border-bottom py-2 mb-2 px-3">' +
+                    '<div>' +
+                    '<p class="mb-0 text-capitalize"><b>' + value.name + '</b></p>' +
+                    '<small>' + value.price + ' Tk.' + '</small>' +
+                    '<small class="mx-3">' + 'Quantity - ' + value.quantity + '</small>' +
+                    '<small>Sub-total: ' + value.quantity * value.price + '</small>' +
+                    '</div>' +
+                    '<div class="ml-auto pt-1">' +
+                    '<button type="button" class="btn shadow-none rounded remove-item-btn" onClick="removeItem(' + value.id + ')">&times;</button>' +
+                    '</div>' +
                     '</div>'
                 )
+                total += value.quantity * value.price
+
             })
+            $("#total").html('Total: ' + total + ' Tk.')
+            console.log(total)
         }
 
-        function remoreItem(id){
+        function removeItem(id) {
             console.log(id)
         }
 

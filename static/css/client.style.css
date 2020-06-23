@@ -363,8 +363,8 @@
 }
 
 .shopping-cart .cart-body p {
-    font-size: 14px;
-    line-height: 0.8rem;
+    font-size: 13px;
+    line-height: 1rem;
 }
 
 .shopping-cart .cart-body .remove-item-btn {
@@ -374,7 +374,7 @@
     border: 1px solid #dfdfdf;
 }
 
-.shopping-cart .cart-body .remove-item-btn:hover{
+.shopping-cart .cart-body .remove-item-btn:hover {
     color: #fff;
     background: brown;
     border: 1px solid brown;
