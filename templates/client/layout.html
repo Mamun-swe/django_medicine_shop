@@ -156,14 +156,26 @@
                     '</div>'
                 )
                 total += value.quantity * value.price
-
             })
             $("#total").html('Total: ' + total + ' Tk.')
-            console.log(total)
         }
 
+
+        var productArr = []
         function removeItem(id) {
-            console.log(id)
+            var datax = JSON.parse(localStorage.getItem('products'))
+            for (let x in datax) {
+                productArr.push(datax[x])
+            }
+
+            $.each(productArr, function (i, el) {
+                if (this.id == id) {
+                    productArr.splice(i, 1);
+                }
+            });
+
+            localStorage.setItem('products', JSON.stringify(productArr))
+            getLocalStorageData()
         }
 
 
@@ -181,8 +193,8 @@
         var w = window.innerWidth;
         if (w > 576) {
             $('#openCart').click(function () {
-                $('#shopping-cart').css('right', '0')
                 getLocalStorageData()
+                $('#shopping-cart').css('right', '0')
             })
             $('#closeCart').click(function () {
                 $('#shopping-cart').css('right', '-100%')
