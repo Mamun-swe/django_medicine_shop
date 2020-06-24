@@ -1,4 +1,5 @@
 from django.db import models
+# from django_mysql.models import ListTextField
 
 # Create your models here.
 
@@ -21,7 +22,13 @@ class Orders(models.Model):
     division = models.CharField(max_length=100)
     address = models.CharField(max_length=250)
     state = models.CharField(max_length=250)
-    order_status = models.CharField(max_length=50)
+    order_status = models.CharField(max_length=50, default="pending")
+    ordered_products = models.CharField(max_length=500)
 
     def __str__(self):
         return self.name
+
+
+# class OrderProducts(models.Model):
+#     products = models.Arr
+    

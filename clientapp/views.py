@@ -1,6 +1,7 @@
 from django.shortcuts import render, HttpResponse
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework import status
 from .models import Users
 from adminapp.models import Products
 from .models import Orders
@@ -9,6 +10,7 @@ from .serializer import OrderSerialize
 from adminapp.serializer import ProductSerializer
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
+from django.http import JsonResponse
 
 # Create your views here.
 
@@ -50,10 +52,19 @@ def checkout(request):
 def placeOrder(request):
     if request.method == 'POST':
         serializer = OrderSerialize(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        new_dict = serializer.__dict__
+
+
+        return JsonResponse(new_dict)
+# for key, item in serializer.data():
+#     if key == ordered_products:
+#         print(item)
+
+# if serializer.is_valid():
+#     print(request.data)
+#     # serializer.save()
+#     return Response(serializer, status=status.HTTP_201_CREATED)
+# return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 def about(request):

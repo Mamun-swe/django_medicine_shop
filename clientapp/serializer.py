@@ -11,4 +11,4 @@ class UsersSerialize(serializers.ModelSerializer):
 class OrderSerialize (serializers.ModelSerializer):
     class Meta:
         model = Orders
-        fields = ('name', 'email', 'phone', 'division', 'address', 'state', 'order_status')
+        fields = ('id', 'name', 'email', 'phone', 'division', 'address', 'state', 'order_status', 'ordered_products')
