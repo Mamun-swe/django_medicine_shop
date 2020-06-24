@@ -3,7 +3,9 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import Users
 from adminapp.models import Products
+from .models import Orders
 from .serializer import UsersSerialize
+from .serializer import OrderSerialize
 from adminapp.serializer import ProductSerializer
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
@@ -36,6 +38,24 @@ def productView(request, id):
         return Response(serializer.data)
 
 
+def cart(request):
+    return render(request, "client/cart.html")
+
+
+def checkout(request):
+    return render(request, "client/checkout.html")
+
+
+@api_view(['POST'])
+def placeOrder(request):
+    if request.method == 'POST':
+        serializer = OrderSerialize(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
 def about(request):
     return render(request, "client/about.html")
 
@@ -46,18 +66,6 @@ def login(request):
 
 def register(request):
     return render(request, "auth/register.html")
-
-
-def registration_submission(request):
-    return render(request, "auth/register.html")
-
-
-@api_view(['GET'])
-def all_register_users(request):
-    if request.method == "GET":
-        list = Users.objects.all()
-        serializer = UsersSerialize(list, many=True)
-        return Response(serializer.data)
 
 
 def reset(request):

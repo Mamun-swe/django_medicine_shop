@@ -337,93 +337,6 @@
     color: #ed1c24;
 }
 
-/* Shopping Cart */
-
-.shopping-cart {
-    position: relative;
-}
-
-.shopping-cart .header {
-    position: absolute;
-    top: 73px;
-    left: 0;
-    width: 100%;
-}
-
-.shopping-cart .header .btn {
-    position: absolute;
-    background: #dfdfdf;
-    padding: 4px 8px;
-    top: 11px;
-    right: 20px;
-}
-
-.shopping-cart .cart-body {
-    margin-top: 60px;
-}
-
-.shopping-cart .cart-body p {
-    font-size: 13px;
-    line-height: 1rem;
-}
-
-.shopping-cart .cart-body .remove-item-btn {
-    padding: 0px 8px;
-    transition: 0.4s;
-    color: brown;
-    border: 1px solid #dfdfdf;
-}
-
-.shopping-cart .cart-body .remove-item-btn:hover {
-    color: #fff;
-    background: brown;
-    border: 1px solid brown;
-}
-
-.shopping-cart .cart-footer .btn {
-    color: #ed1c24;
-    transition: 0.4s;
-    border: 1px solid #dfdfdf;
-}
-
-.shopping-cart .cart-footer .btn:hover {
-    color: #fff;
-    background: #ed1c24;
-    border: 1px solid #ed1c24;
-}
-
-@media(max-width: 992px) {
-    .shopping-cart {
-        position: fixed;
-        bottom: -100%;
-        width: 100%;
-        height: 100%;
-        z-index: 99;
-        padding-top: 73px;
-        overflow-y: auto;
-        background: #fff;
-        transition: 0.5s;
-    }
-}
-
-@media(min-width: 992px) {
-    .shopping-cart {
-        position: fixed;
-        top: 0;
-        right: -100%;
-        width: 350px;
-        height: 100%;
-        z-index: 99;
-        padding-top: 73px;
-        overflow-y: auto;
-        background: #fff;
-        transition: 0.5s;
-        border-left: 1px solid #dfdfdf;
-    }
-}
-
-/* End Shopping Cart */
-
 /* Product Modal */
 
 .home .product-modal {
@@ -485,3 +398,68 @@
         width: 800px;
     }
 }
+
+/* Shopping Cart Start */
+
+.shopping-cart table thead p {
+    font-size: 13px;
+}
+
+.shopping-cart table tbody p {
+    font-size: 13px;
+}
+
+.shopping-cart table tbody tr {
+    border-bottom: 1px solid rgba(226, 228, 226, 0.609);
+}
+
+.shopping-cart table tbody tr td {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.shopping-cart table tbody tr td p {
+    padding-top: 5px;
+}
+
+.shopping-cart table tbody .remove-item-btn {
+    color: brown;
+    padding: 2px 8px;
+    border: 1px solid #dfdfdf;
+}
+
+.shopping-cart .checkout-btn {
+    color: #ed1c24;
+    font-weight: 900;
+    border: 1px solid #dfdfdf;
+}
+
+.shopping-cart .checkout-btn:hover {
+    color: #fff;
+    background: #ed1c24;
+    border: 1px solid #ed1c24;
+}
+
+/* End Shopping Cart */
+
+/* Start Checkout */
+
+.checkout .form-control {
+    font-size: 14px;
+}
+
+.checkout .account-card {
+    background: #dfdfdf69;
+}
+
+.checkout .account-card p {
+    font-size: 14px;
+}
+
+.checkout .btn {
+    font-weight: 900;
+    background: #ed1c24;
+    border: 1px solid #ed1c24;
+}
+
+/* End Checkout */

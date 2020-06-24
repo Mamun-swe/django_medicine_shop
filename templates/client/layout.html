@@ -47,9 +47,9 @@
             </div>
 
             <div class="ml-2">
-                <button class="btn shadow-none" id="openCart">
+                <a href="/cart/" class="btn shadow-none" id="openCart">
                     <img src="/static/icons/cart.png" class="img-fluid">
-                </button>
+                </a>
             </div>
 
             <div class="ml-2">
@@ -112,72 +112,8 @@
     {% endblock %}
 
 
-    <!-- Shopping Cart -->
-    <div class="shopping-cart" id="shopping-cart">
-        <div class="header text-center py-3">
-            <h5 class="mb-0">Your shopping cart</h5>
-            <button type="button" class="btn shadow-none rounded-circle" id="closeCart">
-                <img src="/static/icons/close_small.png" class="img-fluid">
-            </button>
-        </div>
-
-        <div class="cart-body">
-            <div class="pt-3" id="product"></div>
-            <div class="total pl-3 pr-4 pb-3 pt-2 text-right">
-                <p class="mb-0"><b id="total"></b></p>
-            </div>
-        </div>
-
-        <div class="cart-footer px-3 pb-4">
-            <button type="button" class="btn shadow-none btn-block">Place Order</button>
-        </div>
-
-    </div>
-    <!-- End Shopping Cart -->
-
-
     <script src="/static/js/jquery.toast.min.js"></script>
     <script>
-        function getLocalStorageData() {
-            var products = JSON.parse(localStorage.getItem('products'))
-            var total = 0;
-            $.each(products, function (index, value) {
-                $("#product").append(
-                    '<div class="d-flex border-bottom py-2 mb-2 px-3">' +
-                    '<div>' +
-                    '<p class="mb-0 text-capitalize"><b>' + value.name + '</b></p>' +
-                    '<small>' + value.price + ' Tk.' + '</small>' +
-                    '<small class="mx-3">' + 'Quantity - ' + value.quantity + '</small>' +
-                    '<small>Sub-total: ' + value.quantity * value.price + '</small>' +
-                    '</div>' +
-                    '<div class="ml-auto pt-1">' +
-                    '<button type="button" class="btn shadow-none rounded remove-item-btn" onClick="removeItem(' + value.id + ')">&times;</button>' +
-                    '</div>' +
-                    '</div>'
-                )
-                total += value.quantity * value.price
-            })
-            $("#total").html('Total: ' + total + ' Tk.')
-        }
-
-
-        var productArr = []
-        function removeItem(id) {
-            var datax = JSON.parse(localStorage.getItem('products'))
-            for (let x in datax) {
-                productArr.push(datax[x])
-            }
-
-            $.each(productArr, function (i, el) {
-                if (this.id == id) {
-                    productArr.splice(i, 1);
-                }
-            });
-
-            localStorage.setItem('products', JSON.stringify(productArr))
-            getLocalStorageData()
-        }
-
 
         $('#menuToggle').click(function () {
             $("#sideMenu").toggleClass("menu-open");
@@ -188,26 +124,6 @@
         $('#close-mobile-search').click(function () {
             $('#mobile-search-box').css('right', '-100%')
         })
-
-
-        var w = window.innerWidth;
-        if (w > 576) {
-            $('#openCart').click(function () {
-                getLocalStorageData()
-                $('#shopping-cart').css('right', '0')
-            })
-            $('#closeCart').click(function () {
-                $('#shopping-cart').css('right', '-100%')
-            })
-        } else {
-            $('#openCart').click(function () {
-                getLocalStorageData()
-                $('#shopping-cart').css('bottom', '0')
-            })
-            $('#closeCart').click(function () {
-                $('#shopping-cart').css('bottom', '-100%')
-            })
-        }
 
     </script>
 </body>

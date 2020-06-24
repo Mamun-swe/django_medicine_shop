@@ -1,0 +1,119 @@
+{% extends 'client/layout.html' %}
+{% block content %}
+
+<div class="checkout py-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-lg-6 mb-3 mb-lg-0">
+                <h5 class="mb-lg-4">Personal Information</h5>
+                <form>
+                    <!-- Name -->
+                    <div class="form-group mb-3">
+                        <small>Name</small>
+                        <input type="text" id="name" class="form-control shadow-none">
+                    </div>
+
+                    <!-- E-mail -->
+                    <div class="form-group mb-3">
+                        <small>E-mail</small>
+                        <input type="text" id="email" class="form-control shadow-none">
+                    </div>
+
+                    <!-- Phone -->
+                    <div class="form-group mb-3">
+                        <small>Phone</small>
+                        <input type="text" id="phone" class="form-control shadow-none">
+                    </div>
+
+                    <!-- Division -->
+                    <div class="form-group mb-3">
+                        <small>Division</small>
+                        <select id="division" class="form-control shadow-none px-2">
+                            <option value="" selected>Select division</option>
+                            <option value="dhaka">dhaka</option>
+                        </select>
+                    </div>
+
+                    <!-- Address -->
+                    <div class="form-group mb-3">
+                        <small>Address</small>
+                        <input type="text" id="address" class="form-control shadow-none">
+                    </div>
+
+                    <!-- State -->
+                    <div class="form-group mb-3">
+                        <small>State</small>
+                        <input type="text" id="state" class="form-control shadow-none">
+                    </div>
+
+
+                </form>
+            </div>
+
+            <!-- Product Info -->
+            <div class="col-12 col-lg-6 pl-lg-5">
+                <h5 class="mb-lg-4">Product Information</h5>
+                <div class="card mt-lg-5 border-0 account-card mb-4">
+                    <div class="card-body p-lg-4">
+
+
+                        <div class="d-flex mb-2">
+                            <div>
+                                <p class="mb-0">Bag total</p>
+                            </div>
+                            <div class="ml-auto text-right">
+                                <p class="mb-0" id="total"></p>
+                            </div>
+                        </div>
+
+                        <div class="d-flex mb-2">
+                            <div>
+                                <p class="mb-0">Delivary charge</p>
+                            </div>
+                            <div class="ml-auto text-right">
+                                <p class="mb-0 text-success">500 Tk.</p>
+                            </div>
+                        </div>
+
+                        <hr>
+                        <div class="text-right">
+                            <p class="mb-0"><b>Total: 600</b></p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <button type="button" class="btn btn-block text-white shadow-none" id="place_order">Place Order</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    var total = 0;
+    var productArr = JSON.parse(localStorage.getItem('products'))
+    $.each(productArr, function (index, value) {
+        total += value.quantity * value.price
+    })
+
+    $("#total").html(total + ' Tk.')
+
+
+    $("#place_order").click(function () {
+        var data = {
+            name: $("#name").val(),
+            email: $("#email").val(),
+            phone: $("#phone").val(),
+            division: $("#division").val(),
+            address: $("#address").val(),
+            state: $("#state").val(),
+            products: productArr
+        }
+
+        console.log(data);
+
+    })
+</script>
+
+{% endblock %}

@@ -1,0 +1,102 @@
+{% extends 'client/layout.html' %}
+{% block content %}
+
+<div class="shopping-cart py-3 py-lg-5">
+    <div class="container">
+
+        <div class="row" id="empty-cart">
+            <div class="col-12 col-lg-10 m-auto text-center pt-3">
+                <img src="/static/images/empty-cart.png" class="img-fluid">
+            </div>
+        </div>
+
+        <div class="row" id="cart-accounts">
+            <div class="col-12 col-lg-10 m-auto text-center pb-3">
+                <h3>Your shopping cart</h3>
+            </div>
+            <div class="col-12 col-lg-10 m-auto">
+                <table class="table table-sm table-responsive-md table-borderless m-auto">
+                    <thead>
+                        <tr>
+                            <td>
+                                <p class="mb-0"><b>Name</b></p>
+                            </td>
+                            <td class="text-center">
+                                <p class="mb-0"><b>Price</b></p>
+                            </td>
+                            <td class="text-center">
+                                <p class="mb-0"><b>Quantity</b></p>
+                            </td>
+                            <td class="text-center">
+                                <p class="mb-0"><b>Sub-total</b></p>
+                            </td>
+                            <td class="text-right">
+                                <p class="mb-0"><b>Remove</b></p>
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody"></tbody>
+                </table>
+                <div class="text-right pt-2 pb-3">
+                    <p><b id="total"></b></p>
+                    <a href="/checkout/" class="btn checkout-btn shadow-none px-5">Checkout</a>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+<script>
+    var productArr = []
+    var arrLength
+
+    // getItems
+    function getLocalStorageData() {
+        var products = JSON.parse(localStorage.getItem('products'))
+        for (let x in products) {
+            productArr.push(products[x])
+        }
+
+        if (productArr.length > 0) {
+            $("#empty-cart").css("display", "none")
+        } else {
+            $("#cart-accounts").css("display", "none")
+        }
+
+        var total = 0;
+        $.each(productArr, function (index, value) {
+            $("#tbody").append(
+                '<tr>' +
+                '<td><p class="mb-0 text-capitalize">' + value.name + '</p></td>' +
+                '<td><p class="text-center mb-0">' + value.price + ' Tk.' + '</p></td>' +
+                '<td><p class="text-center mb-0">' + value.quantity + '</p></td>' +
+                '<td><p class="text-center mb-0">' + value.quantity * value.price + ' Tk.' + '</p></td>' +
+                '<td class="text-right pr-3">' +
+                '<button type="button" class="btn btn-sm shadow-none rounded remove-item-btn" onClick="removeItem(' + value.id + ')">&times;</button>' +
+                '</td>' +
+                '</tr>'
+            )
+            total += value.quantity * value.price
+        })
+        $("#total").html('Total: ' + total + ' Tk.')
+    }
+
+    getLocalStorageData()
+
+    // Remove Items
+    function removeItem(id) {
+        $.each(productArr, function (i, el) {
+            if (this.id == id) {
+                productArr.splice(i, 1);
+            }
+        });
+
+        localStorage.setItem('products', JSON.stringify(productArr))
+        window.location.reload()
+    }
+
+</script>
+
+{% endblock %}
