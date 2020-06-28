@@ -29,6 +29,18 @@ def home(request):
     return render(request, "client/home.html", {'product': products})
 
 
+def search(request):
+    try:
+        q = request.GET.get('q')
+    except:
+        q = None
+    if q:
+        products = Products.objects.filter(name__icontains=q)
+        return render(request, "client/results.html", {'query': q, 'products': products})
+    else:
+        return render(request, "client/home.html")
+
+
 @api_view(['GET'])
 def productView(request, id):
     try:
@@ -53,7 +65,6 @@ def placeOrder(request):
     if request.method == 'POST':
         serializer = OrderSerialize(data=request.data)
         new_dict = serializer.__dict__
-
 
         return JsonResponse(new_dict)
 # for key, item in serializer.data():

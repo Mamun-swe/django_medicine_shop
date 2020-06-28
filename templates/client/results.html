@@ -1,0 +1,124 @@
+{% extends 'client/layout.html' %}
+{% block content %}
+
+<div class="results home">
+
+    <div class="container py-3">
+        <div class="row">
+            <div class="col-12 mb-3">
+                <h5>Search for: {{ query }}</h5>
+            </div>
+        </div>
+
+        <div class="row">
+
+            {% for product in products %}
+            <div class="col-6 col-md-4 col-lg-3 px-2 px-sm-3">
+                <div class="card product-card border-0 text-center">
+                    <img src="{{ product.product_images.url }}" class="product-img">
+                    <p class="mb-0 text-capitalize">{{ product.name }}</p>
+                    <p class="mb-2">Price : {{product.price}}tk.</p>
+                    <button type="button" class="btn shadow-none btn-block"
+                        onclick="addToCart({id: '{{product.id}}', name: '{{product.name}}', price: '{{product.price}}', image: '{{product.product_images}}'})">Add
+                        Cart</button>
+                    <div class="overlay">
+                        <button type="button" class="btn shadow-none btn-block"
+                            onclick="openModal('{{ product.id }}')">Details</button>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+
+    <div class="product-modal" id="modal">
+        <div class="modal-content">
+            <div class="row">
+                <button type="button" class="btn shadow-none close-btn" id="closeModal">
+                    <img src="/static/icons/close_new.png" alt="">
+                </button>
+                <div class="col-12 col-sm-6 col-lg-5 mt-4 mt-sm-0">
+                    <div id="image"></div>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-7 pl-sm-2 pl-md-3 pl-lg-4 pt-3 pt-sm-0 mt-sm-4">
+                    <h5 id="product-name" class="mb-3"></h5>
+                    <p id="product-description" class="mb-3"></p>
+                    <p id="product-price" class="mb-3"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+    // Modal Script
+    var modal = document.getElementById("modal")
+    function openModal(id) {
+        $.ajax({
+            type: 'GET',
+            url: "/product/" + id + "/view",
+            success: function (data) {
+                $("#product-name").html(data.name),
+                    $("#product-price").html('Price: ' + data.price + ' Tk.'),
+                    $("#product-description").html(data.description)
+                $("#image").html('<img src="' + data.product_images + '" class="img-fluid" />')
+            }
+        })
+        modal.style.display = "block";
+        $("#modal-id").html(id)
+    }
+
+    $("#closeModal").click(function () {
+        modal.style.display = "none";
+    })
+
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+    // End modal script
+
+
+    // Add-cart Script
+    var productArr = []
+    var datax = JSON.parse(localStorage.getItem('products'))
+    for (let x in datax) {
+        productArr.push(datax[x])
+    }
+
+    function addToCart(product) {
+        var data = {
+            id: parseInt(product.id),
+            name: product.name,
+            price: parseInt(product.price),
+            quantity: 1
+        }
+
+        var foundArray = productArr.find(x => x.id === parseInt(product.id))
+        if (foundArray) {
+            $.toast({
+                allowToastClose: true,
+                bgColor: '#ffc107',
+                position: 'top-right',
+                heading: 'Already added',
+                text: "This product already added into cart."
+            })
+        } else {
+            productArr.push(data)
+            localStorage.setItem('products', JSON.stringify(productArr))
+            $.toast({
+                allowToastClose: true,
+                bgColor: '#28a745',
+                position: 'top-right',
+                heading: 'Successfully',
+                text: "1 Product added to your cart."
+            })
+        }
+
+    }
+    // End add-cart Script
+</script>
+
+{% endblock %}

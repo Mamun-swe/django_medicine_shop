@@ -30,10 +30,10 @@
 
             <!-- Search Form -->
             <div class="flex-fill d-none d-sm-block">
-                <form>
+                <form action="/search/">
                     <div class="search-box">
-                        <input type="text" class="form-control shadow-none w-100 "
-                            placeholder="Search for medicine (e.g. Napa, Python, JS)">
+                        <input type="text" name="q" class="form-control shadow-none w-100 "
+                            placeholder="Search for medicine (e.g. Napa, Python, JS)" required>
                         <img src="/static/icons/search.png">
                     </div>
                 </form>
@@ -76,10 +76,10 @@
     <div class="search-for-mobile d-block d-sm-none p-3 border-bottom" id="mobile-search-box">
         <div class="d-flex">
             <div class="flex-fill">
-                <form>
+                <form action="/search/">
                     <div class="search-box">
-                        <input type="text" class="form-control shadow-none w-100 "
-                            placeholder="Search for medicine (e.g. Napa, Python, JS)">
+                        <input type="text" name="q" class="form-control shadow-none w-100 "
+                            placeholder="Search for medicine (e.g. Napa, Python, JS)" required>
                         <button type="submit" class="btn shadow-none search-btn">
                             <img src="/static/icons/search.png" class="img-fluid">
                         </button>
